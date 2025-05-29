@@ -20,10 +20,7 @@ FROM base AS deploy
 WORKDIR /app
 COPY --from=build /app/dist/ ./dist/
 COPY --from=build /app/node_modules ./node_modules
-# COPY --from=build /app/.env ./
 
 EXPOSE 3000
 
-# Start the server using the production build
-# CMD ["npm", "run", "start:prod"]
 CMD [ "node", "dist/main.js" ]

@@ -1,20 +1,12 @@
-import { MiddlewareConsumer, Module, NestModule, OnModuleInit } from '@nestjs/common';
-import { MikroOrmMiddleware, MikroOrmModule } from '@mikro-orm/nestjs';
-import { MikroORM } from '@mikro-orm/core';
+import { Module } from '@nestjs/common';
+import { MikroOrmModule } from '@mikro-orm/nestjs';
+import { AplicacionesModule } from './modules/aplicaciones/aplicaciones.module';
 
 @Module({
   imports: [
-    MikroOrmModule.forRoot()
+    MikroOrmModule.forRoot(),
+    AplicacionesModule
   ],
 })
-export class AppModule implements NestModule, OnModuleInit {
-  constructor(private readonly orm: MikroORM) {}
-
-  async onModuleInit(): Promise<void> {
-    await this.orm.getMigrator().up();
-  }
-
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(MikroOrmMiddleware).forRoutes('*')
-  }
+export class AppModule {
 }
